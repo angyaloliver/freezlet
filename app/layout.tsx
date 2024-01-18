@@ -14,7 +14,7 @@ export const metadata = {
   description: "the most inexpensive way to learn from flashcards",
 };
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
