@@ -2,6 +2,9 @@ import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export default function Login({
   searchParams,
@@ -79,34 +82,29 @@ export default function Login({
         className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
         action={signIn}
       >
-        <label className="text-md" htmlFor="email">
+        <Label className="text-md" htmlFor="email">
           Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+        </Label>
+        <Input
+          className="px-4 py-4 mb-4"
           name="email"
           placeholder="you@example.com"
           required
         />
-        <label className="text-md" htmlFor="password">
+        <Label className="text-md" htmlFor="password">
           Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+        </Label>
+        <Input
+          className="px-4 py-4 mb-4"
           type="password"
           name="password"
           placeholder="••••••••"
           required
         />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
-          Sign In
-        </button>
-        <button
-          formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-        >
+        <Button className="mb-2">Sign In</Button>
+        <Button formAction={signUp} variant="secondary">
           Sign Up
-        </button>
+        </Button>
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
