@@ -39,12 +39,14 @@ export default async function Sets() {
     <div className="animate-in w-full">
       <div className="flex flex-col items-center">
         {sets.map((set) => (
-          <Card key={set.id} className="flex items-center w-80 h-20 mb-6">
-            <CardHeader>
-              <CardTitle>{set.name}</CardTitle>
-              <CardDescription>{set.description}</CardDescription>
-            </CardHeader>
-          </Card>
+          <Link href={`/sets/${set.id}`}>
+            <Card key={set.id} className="flex items-center w-80 h-20 mb-6">
+              <CardHeader>
+                <CardTitle>{set.name}</CardTitle>
+                <CardDescription>{set.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
         ))}
         <Button>
           <Link href="/sets/add">create</Link>
