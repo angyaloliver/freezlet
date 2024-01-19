@@ -77,7 +77,9 @@ export default function RootLayout({
                 </div>
               </div>
             </header>
-            {children}
+            <div className="w-full flex flex-col items-center pt-28">
+              {children}
+            </div>
           </ThemeProvider>
         </main>
       </body>
