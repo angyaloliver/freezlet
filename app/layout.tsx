@@ -52,6 +52,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+      suppressHydrationWarning
     >
       <body>
         <main className="min-h-screen flex flex-col items-center">

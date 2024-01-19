@@ -25,11 +25,12 @@ export default function MainNav() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/sets" passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              sets
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuLink
+            href="/sets"
+            className={navigationMenuTriggerStyle()}
+          >
+            sets
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
