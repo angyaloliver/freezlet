@@ -8,6 +8,8 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 
+import { Toaster } from "@/components/ui/toaster";
+
 import Link from "next/link";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -55,34 +57,33 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <main className="min-h-screen flex flex-col items-center">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <div className="flex h-14 max-w-screen-2xl items-center px-8">
-                <div className="w-[13%]">
-                  <Link href="/">
-                    <i>q</i>
-                  </Link>
-                </div>
-                <NoSSRMainNav />
-                <div className="flex ml-auto">
-                  <div className="mr-4">
-                    {isSupabaseConnected && <AuthButton />}
-                  </div>
-                  <ModeToggle />
-                </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="flex h-14 max-w-screen-2xl items-center px-8">
+              <div className="w-[13%]">
+                <Link href="/">
+                  <i>q</i>
+                </Link>
               </div>
-            </header>
-            <div className="w-full flex flex-col items-center pt-28">
-              {children}
+              <NoSSRMainNav />
+              <div className="flex ml-auto">
+                <div className="mr-4">
+                  {isSupabaseConnected && <AuthButton />}
+                </div>
+                <ModeToggle />
+              </div>
             </div>
-          </ThemeProvider>
-        </main>
+          </header>
+          <div className="w-full flex flex-col items-center pt-28">
+            {children}
+          </div>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
