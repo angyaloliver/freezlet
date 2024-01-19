@@ -6,11 +6,9 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
@@ -22,12 +20,12 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function MainNav() {
+export default function MainNav() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/sets" legacyBehavior passHref>
+          <Link href="/sets" passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               sets
             </NavigationMenuLink>
