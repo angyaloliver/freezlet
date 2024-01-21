@@ -1,16 +1,14 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "../lib/utils";
 import AuthButton from "@/components/AuthButton";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import { cookies } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
-
 import { Toaster } from "@/components/ui/toaster";
-
 import Link from "next/link";
+
+import MainNav from "../components/MainNav";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -27,29 +25,11 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-import dynamic from "next/dynamic";
-
-const NoSSRMainNav = dynamic(() => import("../components/MainNav"), {
-  ssr: false,
-});
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-
-  const canInitSupabaseClient = () => {
-    try {
-      createClient(cookieStore);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isSupabaseConnected = canInitSupabaseClient();
   return (
     <html
       lang="en"
@@ -70,18 +50,16 @@ export default function RootLayout({
                   <i>q</i>
                 </Link>
               </div>
-              <NoSSRMainNav />
+              <MainNav />
               <div className="flex ml-auto">
                 <div className="mr-4">
-                  {isSupabaseConnected && <AuthButton />}
+                  <AuthButton />
                 </div>
                 <ModeToggle />
               </div>
             </div>
           </header>
-          <div className="w-full flex flex-col items-center pt-28">
-            {children}
-          </div>
+          <div className="w-full flex flex-col items-center">{children}</div>
           <Toaster />
         </ThemeProvider>
       </body>

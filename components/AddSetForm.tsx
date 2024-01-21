@@ -16,7 +16,7 @@ import {
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 import { createSet } from "@/app/actions";
-import { SetSchema } from "../lib/types";
+import { SetSchema } from "../types/zod";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -48,7 +48,7 @@ export function AddSetForm() {
     }
   };
 
-  // TODO: useOptimistic thing, useFormStatus
+  // TODO: add useOptimistic, useFormStatus
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
