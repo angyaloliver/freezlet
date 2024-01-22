@@ -16,7 +16,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "quizlet, but it's free",
+  title: "freezlet",
   description: "the most inexpensive way to learn from flashcards",
 };
 
