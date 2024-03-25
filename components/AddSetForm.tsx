@@ -21,11 +21,9 @@ import { SetSchema } from "../types/zod";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 
 export function AddSetForm() {
   const { toast } = useToast();
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof SetSchema>>({
     resolver: zodResolver(SetSchema),
@@ -44,7 +42,6 @@ export function AddSetForm() {
         title: response.message,
         description: "way to go",
       });
-      router.push(`/sets`);
     }
   };
 

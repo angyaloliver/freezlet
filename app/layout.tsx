@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Inter as FontSans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "../lib/utils";
@@ -18,22 +18,24 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "freezlet",
   description: "the most inexpensive way to learn from flashcards",
+  icons:
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>",
 };
 
-const fontSans = FontSans({
+const fontInter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
 });
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en"
-      className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+      className={cn("min-h-screen font-inter antialiased", fontInter.variable)}
       suppressHydrationWarning
     >
       <body>
@@ -46,9 +48,7 @@ export default function RootLayout({
           <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="flex h-14 max-w-screen-2xl items-center px-8">
               <div className="w-[13%]">
-                <Link href="/">
-                  <i>q</i>
-                </Link>
+                <Link href="/">❄️</Link>
               </div>
               <MainNav />
               <div className="flex ml-auto">

@@ -11,20 +11,24 @@ import Link from "next/link";
 
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import AddSetDialog from "@/components/AddSetDialog";
-import { AddSetForm } from "@/components/AddSetForm";
+import { Tables } from "@/types/supabase";
 
 export default async function Sets() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data, error: authError } = await supabase.auth.getUser();
+  const user = data?.user;
+
+  if (authError) {
+    return <div>authError</div>;
+  }
 
   const { data: sets, error } = await supabase
     .from("sets")
     .select("id, name, description")
-    .eq("user_id", user?.id);
+    .eq("user_id", user?.id)
+    .returns<Array<Tables<"sets">>>();
 
   if (error) {
     return <div>error</div>;
@@ -34,7 +38,7 @@ export default async function Sets() {
     return (
       <div className="flex flex-col items-center">
         <p className="mb-6">no sets</p>
-        <Button>create</Button>
+        <AddSetDialog />
       </div>
     );
   }
