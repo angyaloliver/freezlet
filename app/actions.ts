@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { cookies } from "next/headers";
-import { Card, SetSchema } from "@/types/zod";
+import { SetSchema } from "@/types/zod";
 import { CardSchema } from "@/types/zod";
 import { createClient } from "@/utils/supabase/server";
 import { Tables } from "@/types/supabase";

@@ -11,15 +11,13 @@ import Link from "next/link";
 
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import AddSetDialog from "@/components/AddSetDialog";
-import { UserResponse } from "@supabase/supabase-js";
 import { Tables } from "@/types/supabase";
 
 export default async function Sets() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { data, error: authError } =
-    (await supabase.auth.getUser()) as UserResponse;
+  const { data, error: authError } = await supabase.auth.getUser();
   const user = data?.user;
 
   if (authError) {

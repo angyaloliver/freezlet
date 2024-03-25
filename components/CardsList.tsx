@@ -5,6 +5,7 @@ import { PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import { CardInput } from "./CardInput";
 import { Button } from "./ui/button";
 import { Tables } from "@/types/supabase";
+// @ts-ignore
 import { useOptimistic, useTransition } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -15,7 +16,7 @@ export const CardsList = ({
   cards: Array<Tables<"cards">>;
   set: Tables<"sets">;
 }) => {
-  const [isPending, startTransition] = useTransition();
+  const [_, startTransition] = useTransition();
 
   const updateFn = (
     state: Array<Tables<"cards">>,
@@ -44,7 +45,7 @@ export const CardsList = ({
     const card: Tables<"cards"> = {
       id: uuidv4(),
       created_at: new Date().toISOString(),
-      set_id: set.id!,
+      set_id: set.id,
       front: "",
       back: "",
       image_url: "",

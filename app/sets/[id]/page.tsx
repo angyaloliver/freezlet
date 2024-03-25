@@ -7,7 +7,7 @@ import DeleteSetDialog from "@/components/DeleteSetDialog";
 import { getSet, getCards } from "@/app/actions";
 import { CardsList } from "@/components/CardsList";
 
-export const Set = async ({ params }: { params: { id: string } }) => {
+const Set = async ({ params }: { params: { id: string } }) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
