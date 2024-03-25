@@ -11,14 +11,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "my set #1",
-    href: "/sets/1",
-    description: "notes for the set",
-  },
-];
-
 export default function MainNav() {
   return (
     <NavigationMenu>

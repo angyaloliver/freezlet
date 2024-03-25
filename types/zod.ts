@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const SetSchema = z.object({
-  id: z.number().optional(),
+  id: z.string().optional(),
   name: z.string().min(1, {
     message: "name must be at least 1 character",
   }),
@@ -11,12 +11,10 @@ export const SetSchema = z.object({
 export type Set = z.infer<typeof SetSchema>;
 
 export const CardSchema = z.object({
-  front: z.string().min(1, {
-    message: "front must be at least 1 character",
-  }),
-  back: z.string().min(1, {
-    message: "back must be at least 1 character",
-  }),
+  id: z.string().optional(),
+  front: z.string(),
+  back: z.string(),
+  set_id: z.string(),
   image_url: z.string().optional(),
 });
 
