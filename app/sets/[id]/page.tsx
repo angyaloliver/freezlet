@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import DeleteSetDialog from "@/components/DeleteSetDialog";
 import { getSet, getCards } from "@/app/actions";
 import { CardsList } from "@/components/CardsList";
+import Test from "@/components/Test";
 
 const Set = async ({ params }: { params: { id: string } }) => {
   const cookieStore = cookies();
@@ -50,10 +51,11 @@ const Set = async ({ params }: { params: { id: string } }) => {
             </div>
           </div>
           <div className="animate-in flex flex-col items-center">
-            <Tabs defaultValue="list" className="w-[400px]">
-              <TabsList className="grid w-full grid-cols-2">
+            <Tabs defaultValue="test" className="w-[400px]">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="list">list</TabsTrigger>
                 <TabsTrigger value="cards">cards</TabsTrigger>
+                <TabsTrigger value="test">test</TabsTrigger>
               </TabsList>
               <TabsContent value="list">
                 <CardsList cards={cards} set={set} />
@@ -62,6 +64,9 @@ const Set = async ({ params }: { params: { id: string } }) => {
                 {cards && cards.length > 0 && (
                   <FlashCardCarousel cards={cards} />
                 )}
+              </TabsContent>
+              <TabsContent value="test">
+                <Test cards={cards}/>
               </TabsContent>
             </Tabs>
           </div>
