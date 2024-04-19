@@ -11,7 +11,7 @@ import {
 import { Input } from "./ui/input";
 import { debounce } from "lodash";
 import { Tables } from "@/types/supabase";
-import { updateCard } from "@/app/actions";
+import { translate, updateCard } from "@/app/actions";
 
 const useDebounce = (callback: any) => {
   const ref = useRef<() => void>();
@@ -44,6 +44,7 @@ export const CardInput = ({
 }) => {
   const [frontValue, setFrontValue] = useState<string>(card.front ?? "");
   const [backValue, setBackValue] = useState<string>(card.back ?? "");
+  const [backPlaceholder, setBackPlaceholder] = useState<string>("");
 
   const onChangeFront = (e: ChangeEvent<HTMLInputElement>) => {
     setFrontValue(e.target.value);
@@ -55,17 +56,27 @@ export const CardInput = ({
     debouncedRequest();
   };
 
+  const onFirstInputKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Tab" && backPlaceholder != "") {
+      setBackValue(backPlaceholder);
+    }
+  }
+
   const debouncedRequest = useDebounce(async () => {
     await updateCard({ ...card, front: frontValue, back: backValue });
+    if (!backValue) {
+      setBackPlaceholder(await translate(frontValue, 'pt-BR'));
+    }
     console.log(frontValue, backValue);
   });
 
   return (
     <div className={`flex w-full gap-4 ${className}`}>
-      <Input type="text" value={frontValue} onChange={onChangeFront} />
+      <Input type="text" value={frontValue} onChange={onChangeFront} onKeyDown={onFirstInputKeyDown} />
       <Input
         type="text"
         value={backValue}
+        placeholder={backPlaceholder}
         onChange={onChangeBack}
         onKeyDown={(e) => onKeyDown(e, index + 1)}
       />

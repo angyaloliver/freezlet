@@ -7,6 +7,7 @@ import { SetSchema } from "@/types/zod";
 import { CardSchema } from "@/types/zod";
 import { createClient } from "@/utils/supabase/server";
 import { Tables } from "@/types/supabase";
+import { TargetLanguageCode, Translator } from "deepl-node";
 
 export async function getSet(setId: string) {
   const cookieStore = cookies();
@@ -236,4 +237,9 @@ export async function updateCard(card: unknown) {
   revalidatePath("/sets/[id]", "page");
 
   return { message: `updated card ${result.data.front}/${result.data.back}` };
+}
+
+export async function translate(text: string, targetLanguage: TargetLanguageCode) {
+  const translator = new Translator(process.env.DEEPL_API_KEY ?? "");
+  return (await translator.translateText(text, null, targetLanguage)).text;
 }
