@@ -1,35 +1,10 @@
 "use client";
 
-import {
-  ChangeEvent,
-  useState,
-  KeyboardEvent,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
 import { Input } from "./ui/input";
-import { debounce } from "lodash";
 import { Tables } from "@/types/supabase";
 import { translate, updateCard } from "@/app/actions";
-
-const useDebounce = (callback: any) => {
-  const ref = useRef<() => void>();
-
-  useEffect(() => {
-    ref.current = callback;
-  }, [callback]);
-
-  const debouncedCallback = useMemo(() => {
-    const func = () => {
-      ref.current?.();
-    };
-
-    return debounce(func, 1000);
-  }, []);
-
-  return debouncedCallback;
-};
+import { useDebounce } from "@/app/hooks/use-debounce";
 
 export const CardInput = ({
   card,
@@ -57,29 +32,63 @@ export const CardInput = ({
   };
 
   const onFirstInputKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Tab" && backPlaceholder != "") {
+    if (e.key === "Tab" && backPlaceholder) {
       setBackValue(backPlaceholder);
+      debouncedRequest();
     }
-  }
+  };
+
+  const onFocus = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!backValue && !backPlaceholder) {
+      debouncedRequest();
+    }
+
+    moveCursorToEnd(e);
+  };
+
+  const onBlur = async () => {
+    if (!backValue && backPlaceholder) {
+      setBackPlaceholder("");
+    }
+  };
 
   const debouncedRequest = useDebounce(async () => {
     await updateCard({ ...card, front: frontValue, back: backValue });
-    if (!backValue) {
-      setBackPlaceholder(await translate(frontValue, 'pt-BR'));
+    if (frontValue && !backValue) {
+      console.log("translating", frontValue);
+      setBackPlaceholder(await translate(frontValue, "pt-BR"));
     }
     console.log(frontValue, backValue);
   });
 
   return (
     <div className={`flex w-full gap-4 ${className}`}>
-      <Input type="text" value={frontValue} onChange={onChangeFront} onKeyDown={onFirstInputKeyDown} />
+      <Input
+        type="text"
+        value={frontValue}
+        onChange={onChangeFront}
+        onKeyDown={onFirstInputKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      />
       <Input
         type="text"
         value={backValue}
         placeholder={backPlaceholder}
         onChange={onChangeBack}
-        onKeyDown={(e) => onKeyDown(e, index + 1)}
+        onKeyDown={(e) => {
+          onFirstInputKeyDown(e);
+          onKeyDown(e, index + 1);
+        }}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
     </div>
   );
+};
+
+const moveCursorToEnd = (e: ChangeEvent<HTMLInputElement>) => {
+  const input = e.target;
+  const length = input.value.length;
+  input.setSelectionRange(length, length);
 };
