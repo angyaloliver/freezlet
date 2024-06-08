@@ -112,7 +112,9 @@ export const AddSetForm = ({
           control={form.control}
           name="language"
           render={({ field }) => (
-            <FormItem className={isLanguageSet ? "visible" : "invisible"}>
+            <FormItem
+              className={isLanguageSet ? "animate-in visible" : "invisible"}
+            >
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
