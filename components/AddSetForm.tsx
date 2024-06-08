@@ -32,7 +32,13 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Label } from "./ui/label";
 
-export const AddSetForm = ({ className }: React.ComponentProps<"form">) => {
+export const AddSetForm = ({
+  onSubmitAction,
+  className,
+}: {
+  onSubmitAction: () => void;
+  className?: string;
+}) => {
   const [isLanguageSet, setIsLanguageSet] = useState(false);
 
   const form = useForm<z.infer<typeof SetSchema>>({
@@ -53,6 +59,8 @@ export const AddSetForm = ({ className }: React.ComponentProps<"form">) => {
         description: "way to go",
       });
     }
+
+    onSubmitAction();
   };
 
   // TODO: add useOptimistic, useFormStatus

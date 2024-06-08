@@ -40,7 +40,7 @@ export function AddSet() {
             <DialogTitle>create a set</DialogTitle>
             <DialogDescription>it can be about anything</DialogDescription>
           </DialogHeader>
-          <AddSetForm />
+          <AddSetForm onSubmitAction={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
     );
@@ -56,7 +56,7 @@ export function AddSet() {
           <DrawerTitle>create a set</DrawerTitle>
           <DrawerDescription>it can be about anything</DrawerDescription>
         </DrawerHeader>
-        <AddSetForm className="px-4" />
+        <AddSetForm className="px-4" onSubmitAction={() => setOpen(false)} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">cancel</Button>
