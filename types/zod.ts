@@ -6,6 +6,7 @@ export const SetSchema = z.object({
     message: "name must be at least 1 character",
   }),
   description: z.string().optional(),
+  language: z.string().optional(),
 });
 
 export type Set = z.infer<typeof SetSchema>;

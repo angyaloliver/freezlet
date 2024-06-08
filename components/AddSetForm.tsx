@@ -9,11 +9,18 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage,
 } from "./ui/form";
 
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import { Switch } from "@/components/ui/switch";
 
 import { createSet } from "@/app/actions";
 import { SetSchema } from "../types/zod";
@@ -21,15 +28,21 @@ import { SetSchema } from "../types/zod";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Label } from "./ui/label";
 
-export function AddSetForm() {
+export const AddSetForm = ({ className }: React.ComponentProps<"form">) => {
   const { toast } = useToast();
+
+  const [isLanguageSet, setIsLanguageSet] = useState(false);
 
   const form = useForm<z.infer<typeof SetSchema>>({
     resolver: zodResolver(SetSchema),
     defaultValues: {
       name: "",
       description: "",
+      language: "",
     },
   });
 
@@ -48,19 +61,19 @@ export function AddSetForm() {
   // TODO: add useOptimistic, useFormStatus
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn("space-y-4", className)}
+      >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>set name</FormLabel>
+              <FormLabel>name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input autoFocus={false} {...field} />
               </FormControl>
-              <FormDescription>
-                believe it or not, the name of your set
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -72,15 +85,51 @@ export function AddSetForm() {
             <FormItem>
               <FormLabel>description</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input autoFocus={false} {...field} />
               </FormControl>
-              <FormDescription>what is this set about?</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">save</Button>
+
+        <div className="flex items-center">
+          <Label htmlFor="is-language-set" className="mr-4">
+            learning a language?
+          </Label>
+          <Switch
+            id="is-language-set"
+            checked={isLanguageSet}
+            onCheckedChange={setIsLanguageSet}
+          />
+        </div>
+
+        <FormField
+          control={form.control}
+          name="language"
+          render={({ field }) => (
+            <FormItem className={isLanguageSet ? "visible" : "invisible"}>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select a language" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="PT-BR">🇧🇷 brazilian portuguese</SelectItem>
+                  <SelectItem value="HU">🇭🇺 hungarian</SelectItem>
+                  <SelectItem value="DE">🇩🇪 german</SelectItem>
+                  <SelectItem value="KO">🇰🇷 korean</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="w-full">
+          save
+        </Button>
       </form>
     </Form>
   );
-}
+};

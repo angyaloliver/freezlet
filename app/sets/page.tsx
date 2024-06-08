@@ -10,8 +10,8 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 
 import { ChevronRightIcon } from "@radix-ui/react-icons";
-import AddSetDialog from "@/components/AddSetDialog";
 import { Tables } from "@/types/supabase";
+import { AddSet } from "@/components/AddSet";
 
 export default async function Sets() {
   const cookieStore = cookies();
@@ -38,7 +38,7 @@ export default async function Sets() {
     return (
       <div className="flex flex-col items-center">
         <p className="mb-6">no sets</p>
-        <AddSetDialog />
+        <AddSet />
       </div>
     );
   }
@@ -63,7 +63,7 @@ export default async function Sets() {
             </Card>
           </Link>
         ))}
-        <AddSetDialog />
+        <AddSet />
       </div>
     </div>
   );
