@@ -13,12 +13,11 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { Button, buttonVariants } from "./ui/button";
-import { useToast } from "./ui/use-toast";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Tables } from "@/types/supabase";
 
 const DeleteSetDialog = ({ set }: { set: Tables<"sets"> }) => {
-  const { toast } = useToast();
   const router = useRouter();
 
   return (
@@ -39,8 +38,7 @@ const DeleteSetDialog = ({ set }: { set: Tables<"sets"> }) => {
             className={buttonVariants({ variant: "destructive" })}
             onClick={async () => {
               const response = await deleteSet(set);
-              toast({
-                title: response.message,
+              toast(response.message, {
                 description: "way to go",
               });
               router.push("/sets");

@@ -27,14 +27,12 @@ import { SetSchema } from "../types/zod";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Label } from "./ui/label";
 
 export const AddSetForm = ({ className }: React.ComponentProps<"form">) => {
-  const { toast } = useToast();
-
   const [isLanguageSet, setIsLanguageSet] = useState(false);
 
   const form = useForm<z.infer<typeof SetSchema>>({
@@ -51,8 +49,7 @@ export const AddSetForm = ({ className }: React.ComponentProps<"form">) => {
 
     if (result.success) {
       const response = await createSet(result.data);
-      toast({
-        title: response.message,
+      toast(response.message, {
         description: "way to go",
       });
     }

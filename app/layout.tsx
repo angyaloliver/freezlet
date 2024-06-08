@@ -5,7 +5,7 @@ import "./globals.css";
 import { cn } from "../lib/utils";
 import AuthButton from "@/components/AuthButton";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
 
 import MainNav from "../components/MainNav";
