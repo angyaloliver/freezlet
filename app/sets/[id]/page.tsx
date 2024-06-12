@@ -50,8 +50,8 @@ const Set = async ({ params }: { params: { id: string } }) => {
               <DeleteSetDialog set={set} />
             </div>
           </div>
-          <div className="animate-in flex flex-col items-center">
-            <Tabs defaultValue="test" className="w-[400px]">
+          <div className="animate-in flex flex-col items-center mb-16">
+            <Tabs defaultValue="list" className="w-[400px]">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="list">list</TabsTrigger>
                 <TabsTrigger value="cards">cards</TabsTrigger>
@@ -66,7 +66,7 @@ const Set = async ({ params }: { params: { id: string } }) => {
                 )}
               </TabsContent>
               <TabsContent value="test">
-                <Test cards={cards}/>
+                <Test cards={cards} />
               </TabsContent>
             </Tabs>
           </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Button } from "./ui/button";
+import { AvatarDropDown } from "./AvatarDropDown";
 
 export default async function AuthButton() {
   const cookieStore = cookies();
@@ -23,10 +24,7 @@ export default async function AuthButton() {
 
   return user ? (
     <div className="flex items-center gap-4">
-      hey, {user.email}!
-      <form action={signOut}>
-        <Button variant="outline">logout</Button>
-      </form>
+      <AvatarDropDown logOutAction={signOut} />
     </div>
   ) : (
     <Button variant="outline" asChild>

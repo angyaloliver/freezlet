@@ -4,7 +4,6 @@ import "./globals.css";
 
 import { cn } from "../lib/utils";
 import AuthButton from "@/components/AuthButton";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
 
@@ -55,7 +54,6 @@ export default function RootLayout({
                 <div className="mr-4">
                   <AuthButton />
                 </div>
-                <ModeToggle />
               </div>
             </div>
           </header>
