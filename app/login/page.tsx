@@ -55,40 +55,42 @@ export default function Login({
   };
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 pt-28">
-      <form
-        className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
-        action={signIn}
-      >
-        <Label className="text-md" htmlFor="email">
-          Email
-        </Label>
-        <Input
-          className="px-4 py-4 mb-4"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <Label className="text-md" htmlFor="password">
-          Password
-        </Label>
-        <Input
-          className="px-4 py-4 mb-4"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <Button className="mb-2">Sign In</Button>
-        <Button formAction={signUp} variant="secondary">
-          Sign Up
-        </Button>
-        {searchParams?.message && (
-          <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-            {searchParams.message}
-          </p>
-        )}
-      </form>
+    <div className="flex w-full h-full justify-center pt-20 sm:pt-28">
+      <div className="flex px-8 min-w-full sm:min-w-[400px] sm:max-w-md justify-center gap-2 ">
+        <form
+          className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
+          action={signIn}
+        >
+          <Label className="text-md" htmlFor="email">
+            Email
+          </Label>
+          <Input
+            className="px-4 py-4 mb-4"
+            name="email"
+            placeholder="you@example.com"
+            required
+          />
+          <Label className="text-md" htmlFor="password">
+            Password
+          </Label>
+          <Input
+            className="px-4 py-4 mb-4"
+            type="password"
+            name="password"
+            placeholder="••••••••"
+            required
+          />
+          <Button className="mb-2">Sign In</Button>
+          <Button formAction={signUp} variant="secondary">
+            Sign Up
+          </Button>
+          {searchParams?.message && (
+            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+              {searchParams.message}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }

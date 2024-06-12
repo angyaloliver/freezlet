@@ -44,7 +44,7 @@ export default async function Sets() {
   }
 
   return (
-    <div className="animate-in w-full pt-28">
+    <div className="flex flex-col justify-center animate-in pt-20 sm:pt-28">
       <div className="flex flex-col items-center">
         {sets.map((set) => (
           <Link key={set.id} href={`/sets/${set.id}`}>
